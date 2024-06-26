@@ -21,6 +21,9 @@ export default async (req, res) => {
     }
 
     const tokenResponse = await axios.post('https://kauth.kakao.com/oauth/token', null, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       params: {
         grant_type: 'authorization_code',
         client_id: REST_API_KEY,
@@ -39,7 +42,7 @@ export default async (req, res) => {
 
     const user = userResponse.data;
     const profile_nickname = user.kakao_account.profile.nickname;
-
+    
     const yourToken = jwt.sign(
       {
         name: profile_nickname,
@@ -51,6 +54,6 @@ export default async (req, res) => {
     res.status(200).json({ token: yourToken });
   } catch (error) {
     console.error('Error during Kakao login:', error.message);
-    res.status(500).json({ error: 'Failed to log in with Kakao' });
+    res.status(500).json({ error: 'Failed to log in with Kakao', message: error.message });
   }
 };
