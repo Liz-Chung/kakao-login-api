@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/kakaoLogin.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/kakaoLogin",
+      "dest": "/api/kakaoLogin.js"
+    }
+  ]
+}
