@@ -42,7 +42,7 @@ export default async (req, res) => {
 
     const user = userResponse.data;
     const profile_nickname = user.kakao_account.profile.nickname;
-    
+
     const yourToken = jwt.sign(
       {
         name: profile_nickname,
