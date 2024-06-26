@@ -9,13 +9,24 @@ const REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export default async (req, res) => {
-  const { code } = req.body;
-
-  if (!code) {
-    return res.status(400).json({ error: 'Authorization code is missing' });
-  }
-
   try {
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
+    let body;
+    if (req.headers['content-type'] === 'application/json') {
+      body = JSON.parse(req.body);
+    } else {
+      return res.status(400).json({ error: 'Invalid Content-Type' });
+    }
+
+    const { code } = body;
+
+    if (!code) {
+      return res.status(400).json({ error: 'Authorization code is missing' });
+    }
+
     const tokenResponse = await axios.post('https://kauth.kakao.com/oauth/token', null, {
       params: {
         grant_type: 'authorization_code',
