@@ -14,14 +14,7 @@ export default async (req, res) => {
       return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    let body;
-    if (req.headers['content-type'] === 'application/json') {
-      body = JSON.parse(req.body);
-    } else {
-      return res.status(400).json({ error: 'Invalid Content-Type' });
-    }
-
-    const { code } = body;
+    const { code } = req.body;
 
     if (!code) {
       return res.status(400).json({ error: 'Authorization code is missing' });
