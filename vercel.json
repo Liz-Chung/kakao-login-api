@@ -11,5 +11,10 @@
       "src": "/api/kakaoLogin",
       "dest": "/api/kakaoLogin.js"
     }
-  ]
+  ],
+  "functions": {
+    "api/kakaoLogin.js": {
+      "runtime": "nodejs14.x"
+    }
+  }
 }
