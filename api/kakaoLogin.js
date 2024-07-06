@@ -62,6 +62,9 @@ export default async (req, res) => {
     res.status(200).json({ token: yourToken });
   } catch (error) {
     console.error('Error during Kakao login:', error.message);
+    if (error.response) {
+      console.error('Kakao API response:', error.response.data);
+    }
     res.status(500).json({ error: 'Failed to log in with Kakao', message: error.message });
   }
 };
